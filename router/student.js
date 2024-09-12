@@ -41,6 +41,22 @@ router.get("/get-single/:id", async (req, res) => {
   }
 });
 
+// data update routes
+router.post("/update/:id", async (req, res) => {
+  const db = req.db;
+  const id = req.params.id;
+  const reqBody = req.body;
+
+  try {
+    const result = await db
+      .collection("students")
+      .updateOne({ _id: new ObjectId(id) }, { $set: reqBody });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = {
   router,
 };
