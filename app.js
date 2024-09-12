@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { MongoClient } = require("mongodb");
+const { router } = require("./router/student.js");
 
 const app = express();
 const port = 5001;
@@ -28,6 +29,7 @@ connectToDb()
       next();
     });
     // routes
+    app.use("/api", router);
   })
   .catch((error) => {
     console.log("failed to connect ot mongoDb", error);
