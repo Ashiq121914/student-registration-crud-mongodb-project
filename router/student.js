@@ -14,6 +14,18 @@ router.post("/create", async (req, res) => {
   }
 });
 
+// data get all routes
+router.get("/get", async (req, res) => {
+  const db = req.db;
+
+  try {
+    const result = await db.collection("students").find().toArray();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = {
   router,
 };
