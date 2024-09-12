@@ -72,6 +72,18 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+// data all delete routes
+router.delete("/all-delete", async (req, res) => {
+  const db = req.db;
+
+  try {
+    const result = await db.collection("students").deleteMany({});
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = {
   router,
 };
