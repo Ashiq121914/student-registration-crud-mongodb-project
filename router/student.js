@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { ObjectId } = require("mongodb");
 const router = express.Router();
 
 // create student
@@ -20,6 +20,21 @@ router.get("/get", async (req, res) => {
 
   try {
     const result = await db.collection("students").find().toArray();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// data get singe data routes
+router.get("/get-single/:id", async (req, res) => {
+  const db = req.db;
+  const id = req.params.id;
+
+  try {
+    const result = await db
+      .collection("students")
+      .findOne({ _id: new ObjectId(id) });
     res.status(200).json(result);
   } catch (err) {
     res.status(500).json(err);
