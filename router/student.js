@@ -57,6 +57,21 @@ router.post("/update/:id", async (req, res) => {
   }
 });
 
+// data single delete routes
+router.delete("/delete/:id", async (req, res) => {
+  const db = req.db;
+  const id = req.params.id;
+
+  try {
+    const result = await db
+      .collection("students")
+      .deleteOne({ _id: new ObjectId(id) });
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = {
   router,
 };
